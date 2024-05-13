@@ -6,18 +6,18 @@ Contract.make {
         method POST()
         url("/contacts")
         body(
-                id: "1",
-                phone: "12345678"
+                id: $(regex("[0-9]+")),
+                phone: $(regex("[0-9]{8}"))
         )
         headers {
             contentType(applicationJson())
-        }
+        } 
     }
     response {
         status 200
         body(
-                id: "1",
-                phone: "12345678"
+                id: fromRequest().body('$.id'),
+                phone: fromRequest().body('$.phone')
         )
         headers {
             contentType(applicationJson())
@@ -31,8 +31,8 @@ Contract.make {
         method POST()
         url("/contacts")
         body(
-                id: "1",
-                phone: "1234567"
+                id: $(regex("[0-9]+")),
+                phone: $(regex("^(?![0-9]{8}\$).*\$"))
         )
         headers {
             contentType(applicationJson())
@@ -49,7 +49,7 @@ Contract.make {
         method POST()
         url("/contacts")
         body(
-                id: "1"
+                id: $(regex("[0-9]+")),
         )
         headers {
             contentType(applicationJson())
@@ -66,8 +66,22 @@ Contract.make {
         method POST()
         url("/contacts")
         body(
-                phone: "12345678"
+                phone: $(regex("[0-9]{8}"))
         )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 400
+    }
+}
+,
+Contract.make {
+    description "Should return bad request for missing id and missing phone"
+    request {
+        method POST()
+        url("/contacts")
         headers {
             contentType(applicationJson())
         }

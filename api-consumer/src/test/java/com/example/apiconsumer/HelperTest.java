@@ -22,9 +22,15 @@ class HelperTest {
     }
 
     @Test
-    void invalidPhone() throws Exception {
+    void invalidPhone1() throws Exception {
         // Call the send method with invalid data (e.g., invalid phone number)
         assertThrows(Exception.class, () -> Helper.send("1", "1234567"));
+    }
+
+    @Test
+    void invalidPhone2() throws Exception {
+        // Call the send method with invalid data (e.g., invalid phone number)
+        assertThrows(Exception.class, () -> Helper.send("1", "123456789"));
     }
 
     @Test
@@ -37,5 +43,11 @@ class HelperTest {
     void missingId() throws Exception {
         // Call the send method with invalid data (e.g., empty phone number)
         assertThrows(Exception.class, () -> Helper.send(null, "12345678"));
+    }
+
+    @Test
+    void missingIdAndPhone() throws Exception {
+        // Call the send method with invalid data (e.g., empty phone number)
+        assertThrows(Exception.class, () -> Helper.send(null, null));
     }
 }
