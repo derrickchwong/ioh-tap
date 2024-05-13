@@ -1,5 +1,7 @@
 This repo demostrate the use of Spring Cloud Contract.  
 
+There is a sample contract at [here](./api-provider/src/test/resources/contracts/validate.groovy). Try modify it and run tests.
+
 To verify api-provider with the contract
 
 ```
